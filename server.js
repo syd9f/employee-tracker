@@ -1,30 +1,41 @@
+const express = require('express');
+// Import and require mysql2
 const mysql = require('mysql2');
+
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+// Express middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 const db = mysql.createConnection(
     {
       host: 'localhost',
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME
+
+      user: 'root',
+    //   ADD MYSQL PASSWORD HERE
+      password: '',
+      database: 'employees_db',
     },
     console.log(`Connected to the employees_db database.`)
   );
 
-//   // Read all departments
-// app.get('/api/department', (req, res) => {
-//     const sql = `SELECT id, name AS title FROM department`;
+  // Read all departments
+app.get('/api/departments', (req, res) => {
+    const sql = `SELECT id, name AS title FROM department`;
     
-//     db.query(sql, (err, rows) => {
-//       if (err) {
-//         res.status(500).json({ error: err.message });
-//          return;
-//       }
-//       res.json({
-//         message: 'success',
-//         data: rows
-//       });
-//     });
-//   });
+    db.query(sql, (err, rows) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+         return;
+      }
+      res.json({
+        message: 'success',
+        data: rows
+      });
+    });
+  });
 
 //   // Read list of all employees and associated roles using LEFT JOIN
 // app.get('/api/employee', (req, res) => {
