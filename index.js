@@ -155,8 +155,14 @@ inquirer
       }
     ])
     .then((response) => {
-      db.query("UPDATE employee_list SET role_id =? WHERE id =?", response, function (err, results) {
-        console.log('Employee updated!');
+      const { id, role_id } = response;
+
+      db.query("UPDATE employee_list SET role_id =? WHERE id =?", [role_id, id], function (err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Employee updated!');
+        }
         mainMenu();
       })
     })
