@@ -17,6 +17,9 @@ This is a project intended for business owners to view and manage the department
 Requires node.js and Inquirer version 8.2.4
 
 ## Usage
+
+[Video Walkthrough]('https://drive.google.com/file/d/1dpWkIEire7X-cOyw7ZCvGYcbPh_l8lhu/view')
+
 This application is used in the command line. When opening the terminal, first run `npm i` to make sure the required packages are installed before moving forward. 
 
 After ensuring the required packages are installed, open the MySQL shell and type `source db/schema.sql` to run the database. Then, type `source db/seeds.sql` to seed the database.
