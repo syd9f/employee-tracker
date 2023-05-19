@@ -26,33 +26,43 @@ inquirer
   .then((response) => {
 
     if (response.options == 'View all Departments') {
-        // Add code to view departments in a formatted table showing department names and department ids
-        db.query('SELECT * from departments', function (err, results) {
-          console.table(results);
-        });
+        viewDepartments();
     } else if(response.options == 'View all Roles') {
-    //   add code to view the job title, role id, the department that role belongs to, and the salary for that role
-    db.query('SELECT * from roles', function (err, results) {
-      console.table(results);
-    });
+        viewRoles();
     } else if(response.options == 'View all Employees'){
-    //   add code to view a a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-    db.query('SELECT * from employees', function (err, results) {
-      console.table(results);
-    });
+        viewEmployees();
   } else if(response.options == 'Add a Department'){
-        //   add code that prompts user to enter the name of the department and that department is added to the database
         addDepartment();
     } else if(response.options == 'Add a Role'){
-        //   add code that prompts user to enter the name, salary, and department for the role and that role is added to the database
+        addRole();
     } else if(response.options == 'Add an Employee'){
-        //   add code that prompts user to to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
+        addEmployee();
     } else if(response.options == 'Update an Employee Role'){
-        //   add code that prompts user to select an employee to update and their new role (and this information is then updated in the database)
+        updateEmployee();
     }
 
   })
 }
+  function viewDepartments() {
+    db.query('SELECT * from departments', function (err, results) {
+      console.table(results);
+      mainMenu();
+    });
+  }
+
+  function viewRoles() {
+    db.query('SELECT * from employee_roles', function (err, results) {
+      console.table(results);
+      mainMenu();
+    });
+  }
+
+  function viewEmployees() {
+    db.query('SELECT * from employee_list', function (err, results) {
+      console.table(results);
+      mainMenu();
+    });
+  }
 
   function addDepartment() {
     inquirer
@@ -71,6 +81,84 @@ inquirer
     })
   }
 
-  mainMenu();
+  function addRole() {
+    inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'title',
+        message: 'What is the title of the role?'
+      },
+      {
+        type: 'input',
+        name: 'salary',
+        message: 'Enter the salary for this position:'
+      },
+      {
+        type: 'input',
+        name: 'department_id',
+        message: 'Enter the department id for this role:'
+      }
+    ])
+    .then((response) => {
+      db.query("INSERT INTO employee_roles SET ?", response, function (err, results) {
+        console.log('Role added!');
+        mainMenu();
+      })
+    })
+  }
 
-  ("UPDATE employee SET role_id =? WHERE id =?")
+  function addEmployee() {
+    inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'first_name',
+        message: 'What is the first name of the new employee?'
+      },
+      {
+        type: 'input',
+        name: 'last_name',
+        message: 'What is the last name of the new employee?'
+      },
+      {
+        type: 'input',
+        name: 'role_id',
+        message: 'What is the id for the employees role?',
+      },
+      {
+        type: 'input',
+        name: 'manager_id',
+        message: 'What is the id of the manager this employee reports to?',
+      }
+    ])
+    .then((response) => {
+      db.query("INSERT INTO employee_list SET ?", response, function (err, results) {
+        console.log('Employee added!');
+        mainMenu();
+      })
+    })
+  }
+
+  function updateEmployee() {
+    inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'id',
+        message: 'Enter the employee id for the employee you would like to update:'
+      },
+      {
+        type: 'input',
+        name: 'role_id',
+        message: 'Enter a new role id for the employee:'
+      }
+    ])
+    .then((response) => {
+      db.query("UPDATE employee_list SET role_id =? WHERE id =?", response, function (err, results) {
+        console.log('Employee updated!');
+        mainMenu();
+      })
+    })
+  }
+  mainMenu();
