@@ -18,6 +18,8 @@ Requires node.js and Inquirer version 8.2.4
 
 ## Usage
 
+![Gif](./images/employee-tracker.gif)
+
 [Video Walkthrough]('https://drive.google.com/file/d/1dpWkIEire7X-cOyw7ZCvGYcbPh_l8lhu/view')
 
 This application is used in the command line. When opening the terminal, first run `npm i` to make sure the required packages are installed before moving forward. 
