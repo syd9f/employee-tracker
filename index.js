@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const mysql = require('mysql2');
 
 inquirer
   .prompt([
@@ -14,11 +15,20 @@ inquirer
 
     if (response.options == 'View all Departments') {
         // Add code to view departments in a formatted table showing department names and department ids
+        db.query('SELECT * from departments', function (err, results) {
+          console.log(results);
+        });
     } else if(response.options == 'View all Roles') {
     //   add code to view the job title, role id, the department that role belongs to, and the salary for that role
+    db.query('SELECT * from roles', function (err, results) {
+      console.log(results);
+    });
     } else if(response.options == 'View all Employees'){
     //   add code to view a a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-    } else if(response.options == 'Add a Department'){
+    db.query('SELECT * from employees', function (err, results) {
+      console.log(results);
+    });
+  } else if(response.options == 'Add a Department'){
         //   add code that prompts user to enter the name of the department and that department is added to the database
     } else if(response.options == 'Add a Role'){
         //   add code that prompts user to enter the name, salary, and department for the role and that role is added to the database
