@@ -11,6 +11,7 @@ This is a project intended for business owners to view and manage the department
 2. [Installation](#Installation) 
 3. [Usage](#usage) 
 4. [Questions](#questions)
+5. [Credits](#credits)
 
 ## Installation
 
@@ -46,3 +47,6 @@ If the user chooses to update an employee role, they will be prompted to enter t
 Contact for Questions: 
  [Github](https://github.com/syd9f) 
 Email: sydniefarrell@gmail.com
+
+## Credits
+Worked on with Tutor:  Eric Sayer
